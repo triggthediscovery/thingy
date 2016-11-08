@@ -114,13 +114,18 @@ bool BST<T>::remove(const T & Val) {
 	
 	if (where->left==NULL) {
 		if (where->prev != NULL) {
-			where->prev->next=where->right;
+			if (where->prev->left == where) {
+				where->prev->left = where->right;
+			} else {
+				where->prev->right = where->right;
+			}
 			delete where;
 			return true;
 		} else {
 			if (where->right!=NULL) {
 				where->value = where->right->value;
-				where->next = where->right->next;
+				where->left = where->right->left;
+				where->right = where->right->right;
 				delete where->right
 			} else {
 				delete this;
@@ -129,12 +134,17 @@ bool BST<T>::remove(const T & Val) {
 		}
 	} else if (where->right==NULL) {
 		if (where->prev != NULL) {
-			where->prev->next=where->left;
+			if (where->prev->left == where) {
+				where->prev->left = where->left;
+			} else {
+				where->prev->right = where->left;
+			}
 			delete where;
 			return true;
 		} else {
 			where->value = where->left->value;
-			where->next = where->left->next;
+			where->right = where->left->right;
+			where->left = where->left->left;
 			delete where->left;
 		}
 	} else {

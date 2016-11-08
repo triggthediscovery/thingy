@@ -12,7 +12,7 @@ template<template T> class BST{
 		bool display() const;
 	private:
 		BST* FindMax();
-		BST* Locate();
+		BST* Locate(const T & Val);
 		
 		T value;
 		T* prev;
