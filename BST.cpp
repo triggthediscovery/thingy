@@ -1,3 +1,12 @@
+#ifndef _BST_CPP_
+#define _BST_CPP_
+
+#include"BST.h"
+#include<stdlib.h>
+#include <iostream>
+
+using namespace std;
+
 template<typename T> 
 BST<T>::BST() {
 	prev=NULL;
@@ -9,7 +18,7 @@ template<typename T>
 BST<T>::BST(T Val) {
 	value = Val;
 	prev = NULL;
-	next = NULL;
+	left = NULL;
 	right = NULL;
 }
  
@@ -60,24 +69,22 @@ bool BST<T>::find(const T & Val) {
 }
 
 template<typename T> 
-bool BST<T>::display() {
-	if (Val<value) {
-		if (this->left!=NULL) {
-			this->left->display(Val);
-		}
-	} else if (Val==value) {
-		cout << T << ",";
-	} else {
-		if (this->right!=NULL) {
-			this->right->display(Val);
-		}
+bool BST<T>::display() const {
+	if (this->left!=NULL) {
+		this->left->display();
+	}
+		
+	cout << value << ",";
+	
+	if (this->right!=NULL) {
+		this->right->display();
 	}
 	
 	return true;
 }
 
 template<typename T> 
-BST* BST<T>::FindMax() {
+BST<T>* BST<T>::FindMax() {
 	if (this->right!=NULL) {
 		return this->right->FindMax();
 	} else {
@@ -86,7 +93,7 @@ BST* BST<T>::FindMax() {
 }
 
 template<typename T> 
-BST* BST<T>::Locate(const T & Val) {
+BST<T>* BST<T>::Locate(const T & Val) {
 	if (Val<value) {
 		if (this->left==NULL) {
 			return NULL;
@@ -126,7 +133,7 @@ bool BST<T>::remove(const T & Val) {
 				where->value = where->right->value;
 				where->left = where->right->left;
 				where->right = where->right->right;
-				delete where->right
+				delete where->right;
 			} else {
 				delete this;
 				return true;
@@ -160,7 +167,7 @@ bool BST<T>::remove(const T & Val) {
 	}
 }
 
-
+#endif
 
 
 

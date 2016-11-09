@@ -1,4 +1,7 @@
-template<template T> class BST{
+#ifndef _BST_H_
+#define _BST_H_
+
+template<typename T> class BST{
 	public:
 		BST();
 		
@@ -18,6 +21,8 @@ template<template T> class BST{
 		T* prev;
 		T* left;
 		T* right;
-}
+};
 
-#include <BST.cpp>
+#include "BST.cpp"
+
+#endif
