@@ -13,7 +13,7 @@ int main() {
 		BST<int> tree1;
 		for(int i=0; i < nodes; i++) {
 			int val = rand() % maxVal;
-			//tree1.insert(val);
+			tree1.insert(val);
 			arr[i] = val;
 		}
 		sort(arr, arr + nodes);
@@ -24,7 +24,7 @@ int main() {
 			cout << arr[i] << " ";
 		}
 		cout << endl;
-		//tree1.display();
+		tree1.display();
 		//type containing pointers
 		BST<vector<int>> tree2;
 
