@@ -1,4 +1,4 @@
 tester.dSYM/*
-*.o
-driver
-tester
+./*.o
+./driver
+./tester

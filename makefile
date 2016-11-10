@@ -2,7 +2,7 @@
 FLAGS = -Wall -std=c++11
 
 all:	driver
-	
+
 tester: tester.o
 	g++ $(FLAGS) tester.o -o tester
 
@@ -16,4 +16,4 @@ driver.o: driver.cpp
 	g++ $(FLAGS) -c driver.cpp -o driver.o
 
 clean:
-	rm -f *.o driver 
+	rm -f *.o driver tester
