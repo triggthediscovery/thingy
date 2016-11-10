@@ -18,9 +18,9 @@ template<typename T> class BST{
 		BST* Locate(const T & Val);
 		
 		T value;
-		T* prev;
-		T* left;
-		T* right;
+		BST* prev;
+		BST* left;
+		BST* right;
 };
 
 #include "BST.cpp"
