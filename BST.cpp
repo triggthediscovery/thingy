@@ -3,7 +3,7 @@
 
 #include"BST.h"
 #include<stdlib.h>
-#include <iostream>
+#include<iostream>
 
 using namespace std;
 
@@ -33,6 +33,7 @@ bool BST<T>::insert(const T & Val) {
 	if (Val<value) {
 		if (this->left==NULL) {
 			this->left = new BST(Val);
+			this->left->prev = this;
 			return true;
 		} else {
 			return this->left->insert(Val);
@@ -42,6 +43,7 @@ bool BST<T>::insert(const T & Val) {
 	} else {
 		if (this->right==NULL) {
 			this->right = new BST(Val);
+			this->right->prev = this;
 			return true;
 		} else {
 			return this->right->insert(Val);
@@ -119,51 +121,79 @@ bool BST<T>::remove(const T & Val) {
 	
 	if (where==NULL) return false;
 	
-	if (where->left==NULL) {
-		if (where->prev != NULL) {
-			if (where->prev->left == where) {
-				where->prev->left = where->right;
+	if (where->prev!=NULL) {
+		if ((where->left!=NULL) && (where->right!=NULL)) {
+			BST<T>* replace;
+		
+			replace = where->left->FindMax();
+		
+			T hold = replace->value;
+		
+			remove(replace->value);
+			
+			where->value = hold;
+		
+			return true;	
+		} else if (where->left!=NULL) {
+			if (where->prev->left==where) {
+				where->prev->left=where->left;
 			} else {
-				where->prev->right = where->right;
+				where->prev->right=where->left;
 			}
 			delete where;
-			return true;
-		} else {
-			if (where->right!=NULL) {
-				where->value = where->right->value;
-				where->left = where->right->left;
-				where->right = where->right->right;
-				delete where->right;
+		} else if (where->right!=NULL) {
+			if (where->prev->left==where) {
+				where->prev->left=where->right;
 			} else {
-				delete this;
-				return true;
-			}
-		}
-	} else if (where->right==NULL) {
-		if (where->prev != NULL) {
-			if (where->prev->left == where) {
-				where->prev->left = where->left;
-			} else {
-				where->prev->right = where->left;
+				where->prev->right=where->right;
 			}
 			delete where;
-			return true;
 		} else {
-			where->value = where->left->value;
-			where->right = where->left->right;
-			where->left = where->left->left;
-			delete where->left;
+			if (where->prev->left==where) {
+				where->prev->left=NULL;
+			} else {
+				where->prev->right=NULL;
+			}
+			delete where;
 		}
 	} else {
-		BST* replace;
+		if ((where->left!=NULL) && (where->right!=NULL)) {
+			BST<T>* replace;
 		
-		replace = FindMax(where->left);
+			replace = where->left->FindMax();
 		
-		where->value = replace->value;
+			T hold = replace->value;
 		
-		remove(replace);
+			remove(replace->value);
+			
+			where->value = hold;
 		
-		return true;
+			return true;
+		} else if (where->left!=NULL) {
+			BST* holdLeft=where->left;
+		
+			where->value = holdLeft->value;
+			where->left = holdLeft->left;
+			where->right = holdLeft->right;
+			
+			if (where->left!=NULL) where->left->prev=where;
+			if (where->right!=NULL) where->right->prev=where;
+			
+			delete holdLeft;
+		} else if (where->right!=NULL) {
+			BST* holdRight=where->right;
+		
+			where->value = holdRight->value;
+			where->left = holdRight->left;
+			where->right = holdRight->right;
+			
+			if (where->left!=NULL) where->left->prev=where;
+			if (where->right!=NULL) where->right->prev=where;
+			
+			delete holdRight;
+		} else {
+			delete this;
+		}
 	}
 }
 
