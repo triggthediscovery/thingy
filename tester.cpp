@@ -26,9 +26,9 @@ int main() {
 		cout << endl;
 		tree1.display();
 		//type containing pointers
-		BST<vector<int>> tree2;
-
+		//BST<vector<int>> tree2;
 		//passing a reference to an object on the heap
+		
 	}
 	return 0;
 }
