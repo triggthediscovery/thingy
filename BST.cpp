@@ -9,6 +9,7 @@ using namespace std;
 
 template<typename T> 
 BST<T>::BST() {
+	defined=false;
 	prev=NULL;
 	left=NULL;
 	right=NULL;
@@ -17,6 +18,7 @@ BST<T>::BST() {
 template<typename T> 
 BST<T>::BST(T Val) {
 	value = Val;
+	defined=true;
 	prev = NULL;
 	left = NULL;
 	right = NULL;
@@ -30,6 +32,12 @@ BST<T>::~BST() {
 
 template<typename T> 
 bool BST<T>::insert(const T & Val) {
+	if (!defined) {
+		value=Val;
+		defined=true;
+		return true;
+	}
+
 	if (Val<value) {
 		if (this->left==NULL) {
 			this->left = new BST(Val);
@@ -53,6 +61,8 @@ bool BST<T>::insert(const T & Val) {
 
 template<typename T> 
 bool BST<T>::find(const T & Val) {
+	if (!defined) return false;
+
 	if (Val<value) {
 		if (this->left==NULL) {
 			return false;
@@ -72,6 +82,8 @@ bool BST<T>::find(const T & Val) {
 
 template<typename T> 
 bool BST<T>::display() const {
+	if (!defined) return true;
+
 	if (this->left!=NULL) {
 		this->left->display();
 	}
@@ -115,6 +127,8 @@ BST<T>* BST<T>::Locate(const T & Val) {
 
 template<typename T> 
 bool BST<T>::remove(const T & Val) {
+	if (!defined) return false;
+
 	BST* where;
 	
 	where = Locate(Val);

@@ -21,6 +21,7 @@ template<typename T> class BST{
 		BST* prev;
 		BST* left;
 		BST* right;
+		bool defined;
 };
 
 #include "BST.cpp"
