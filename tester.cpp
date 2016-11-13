@@ -66,6 +66,7 @@ int main() {
 	}
 	cout << endl << endl;
 	//test remove
+	
 	cout << "remove test" << endl;
 	{
 		cout << "we should not be able to find any nodes that have been removed" << endl;
@@ -79,5 +80,6 @@ int main() {
 			else cout << arr[val] << ": BST find -> false" << endl;
 		}	
 	}
+
 	return 0;
 }
