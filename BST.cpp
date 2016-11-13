@@ -170,6 +170,8 @@ bool BST<T>::remove(const T & Val) {
 			}
 			delete where;
 		}
+		
+		return true;
 	} else {
 		if ((where->left!=NULL) && (where->right!=NULL)) {
 			BST<T>* replace;
