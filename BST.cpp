@@ -211,6 +211,8 @@ bool BST<T>::remove(const T & Val) {
 			delete this;
 		}
 	}
+	
+	return true;
 }
 
 #endif
