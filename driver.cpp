@@ -5,6 +5,9 @@
 using namespace std;
 #define nodes 10000
 #define micro 1000000
+typedef std::chrono::high_resolution_clock Time;
+typedef std::chrono::duration<float> fsec;
+
 template <typename element> 
 element* balancedBST(element list[], int length) {
 	element* retVal = new element[length];
@@ -41,9 +44,6 @@ element* balancedBST(element list[], int length) {
 
 int main() {
 	srand(time(NULL));
-
-	typedef std::chrono::high_resolution_clock Time;
-	typedef std::chrono::duration<float> fsec;
 
 	int sorted[nodes];
 	int shuffled[nodes];
