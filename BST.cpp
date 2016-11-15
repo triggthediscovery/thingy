@@ -224,7 +224,7 @@ bool BST<T>::remove(const T & Val) {
 			
 			delete holdRight;
 		} else {
-			delete this;
+			defined=false;
 		}
 	}
 	
