@@ -1,8 +1,10 @@
 #include "BST.h"
 #include <math.h>
+#include <chrono>
 #include <deque>
 using namespace std;
-#define nodes 1000
+#define nodes 10000
+#define micro 1000000
 template <typename element> 
 element* balancedBST(element list[], int length) {
 	element* retVal = new element[length];
@@ -39,22 +41,92 @@ element* balancedBST(element list[], int length) {
 
 int main() {
 	srand(time(NULL));
-	BST<int> tree; 
-	int arr[nodes];
+
+	typedef std::chrono::high_resolution_clock Time;
+	typedef std::chrono::duration<float> fsec;
+
+	int sorted[nodes];
+	int shuffled[nodes];
+	int pre_balanced[nodes];
 	for(int i=0; i < nodes; i++) {
-		arr[i] = i;
+		sorted[i] = i;
+		shuffled[i] = i;
+		pre_balanced[i] = i;
 	}
-	int* balancedArr = balancedBST(arr, nodes);
-	random_shuffle(arr, arr + nodes);
-	/*
-	for(int i=0; i < nodes; i++) {
-		cout << arr[i] << " ";
+	random_shuffle(shuffled, shuffled + nodes);
+	int* balanced = balancedBST(pre_balanced, nodes);
+
+	//insert test:
+	{
+		//create three trees
+		BST<int> sortedBST;
+		BST<int> shuffledBST;
+		BST<int> balancedBST;
+		float sortedRT[nodes];
+		float shuffledRT[nodes];
+		float balancedRT[nodes];
+		//sorted
+		for(int i=0; i < nodes; i++) {
+			//take the time
+			auto t0 = Time::now();
+			sortedBST.insert(sorted[i]);
+    		auto t1 = Time::now();
+    		//time in microseconds
+    		fsec fs = t1 - t0;
+    		float duration = fs.count()*micro;
+    		sortedRT[i] = duration;
+			//insert this into an array
+		}
+		//shuffled
+		for(int i=0; i < nodes; i++) {
+			//take the time
+			auto t0 = Time::now();
+			shuffledBST.insert(shuffled[i]);
+    		auto t1 = Time::now();
+    		//time in microseconds
+    		fsec fs = t1 - t0;
+    		float duration = fs.count()*micro;
+    		shuffledRT[i] = duration;
+			//insert this into an array
+		}
+		//balanced
+		for(int i=0; i < nodes; i++) {
+			//take the time
+			auto t0 = Time::now();
+			balancedBST.insert(balanced[i]);
+    		auto t1 = Time::now();
+    		//time in microseconds
+    		fsec fs = t1 - t0;
+    		float duration = fs.count()*micro;
+    		balancedRT[i] = duration;
+			//insert this into an array
+		}
+		//graph them
+		//for(int i=0; i< nodes; i++) {
+			cout << sortedRT[nodes-1] << " ";
+		//}
+		cout << endl;
+		//for(int i=0; i< nodes; i++) {
+			cout << shuffledRT[nodes-1] << " ";
+		//}
+		cout << endl;
+		//for(int i=0; i< nodes; i++) {
+			cout << balancedRT[nodes-1] << " ";
+		//}
 	}
-	cout << endl;
-	for(int i=0; i < nodes; i++) {
-		cout << *(balancedArr + i) << " ";
+	//display test:
+	{
+
 	}
-	*/
-	delete [] balancedArr;
+	//find test:
+	{
+
+	}
+	//remove test:
+	{
+
+	}
+
+	delete [] balanced;
 	return 0;
 }

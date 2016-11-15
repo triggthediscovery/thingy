@@ -79,7 +79,7 @@ int main() {
 		// 	if(tree1.find(arr[val])) cout << arr[val] << ": BST find -> true" << endl;
 		// 	else cout << arr[val] << ": BST find -> false" << endl;
 		// }	
-		tree1.remove(arr[0]);
+		//tree1.remove(arr[0]);
 	}
 
 	return 0;
