@@ -180,7 +180,7 @@ int main() {
 	}
 	//find test:
 	{
-	BST<int> sortedBST;
+		BST<int> sortedBST;
 		BST<int> shuffledBST;
 		BST<int> balancedBST;
 		float sortedRT[nodes];
@@ -240,8 +240,71 @@ int main() {
 		//}
 	}
 	//remove test:
-	{
-		
+	{	
+		/*
+		//after removing an element, insert it back again
+		BST<int> sortedBST;
+		BST<int> shuffledBST;
+		BST<int> balancedBST;
+		float sortedRT[nodes];
+		float shuffledRT[nodes];
+		float balancedRT[nodes];
+		//sorted
+		for(int i=0; i < nodes; i++) {
+			sortedBST.insert(sorted[i]);
+			//take the time
+			auto t0 = Time::now();
+			sortedBST.remove(sorted[i]);
+    		auto t1 = Time::now();
+    		sortedBST.insert(sorted[i]);
+    		//time in microseconds
+    		fsec fs = t1 - t0;
+    		float duration = fs.count()*micro;
+    		sortedRT[i] = duration;
+			//insert this into an array
+		}
+		//shuffled
+		for(int i=0; i < nodes; i++) {
+			shuffledBST.insert(shuffled[i]);
+			//take the time
+			auto t0 = Time::now();
+			shuffledBST.remove(sorted[i]);
+    		auto t1 = Time::now();
+    		shuffledBST.insert(shuffled[i]);
+    		//time in microseconds
+    		fsec fs = t1 - t0;
+    		float duration = fs.count()*micro;
+    		shuffledRT[i] = duration;
+			//insert this into an array
+		}
+		//balanced
+		for(int i=0; i < nodes; i++) {
+			balancedBST.insert(balanced[i]);
+			//take the time
+			auto t0 = Time::now();
+			balancedBST.remove(sorted[i]);
+    		auto t1 = Time::now();
+    		balancedBST.insert(balanced[i]);
+    		//time in microseconds
+    		fsec fs = t1 - t0;
+    		float duration = fs.count()*micro;
+    		balancedRT[i] = duration;
+			//insert this into an array
+		}
+		cout << endl;
+		//graph them
+		//for(int i=0; i< nodes; i++) {
+			cout << sortedRT[nodes-1] << " ";
+		//}
+		cout << endl;
+		//for(int i=0; i< nodes; i++) {
+			cout << shuffledRT[nodes-1] << " ";
+		//}
+		cout << endl;
+		//for(int i=0; i< nodes; i++) {
+			cout << balancedRT[nodes-1] << " ";
+		//}
+		*/
 	}
 
 	delete [] balanced;
