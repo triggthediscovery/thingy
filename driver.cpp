@@ -1,5 +1,6 @@
 #include "BST.h"
 #include <math.h>
+#include <fstream>
 #include <chrono>
 #include <deque>
 
@@ -41,6 +42,15 @@ element* balancedBST(element list[], int length) {
 		}
 	}	
 	return retVal;
+}
+void createCSV(float arr[], int length, string file) {
+	ofstream out;
+	out.open(file);
+	out << "nodes, runtime" << endl;
+	for(int i=0; i < length; i++) {
+		out << i << "," << arr[i];
+	}
+	out.close();
 }
 
 int main() {
