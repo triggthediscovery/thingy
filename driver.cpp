@@ -3,24 +3,12 @@
 #include <deque>
 using namespace std;
 #define nodes 1000
-//write a function that returns an array which is passed a sorted array
-//an array whose elements are ordered in such a way that 
-//would create a balanced BST
-//cannot take duplicates
 template <typename element> 
 element* balancedBST(element list[], int length) {
 	element* retVal = new element[length];
 	for(int i=0; i < length; i++) {
 		*(retVal + i) = 0;
 	}
-	//create a deque
-	//take the midpoint of the array
-	//insert into new array
-	//take the bounds of the subarray
-	//insert into deque
-	//while deque is not empty
-	//take the 2 numbers at end 
-	//repeat the above process
 	deque<element> deque;
 	int count = 0;
 	retVal[count++] = list[length/2];

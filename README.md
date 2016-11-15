@@ -52,3 +52,20 @@ To run the tester functions run "make clean" then "./tester"
 
 
 	the next test will cons
+
+
+	How the binary tree is built:
+
+	write a function that returns an array which is passed a sorted array
+	an array whose elements are ordered in such a way that 
+	would create a balanced BST
+	cannot take duplicates
+	
+	create a deque
+	take the midpoint of the array
+	insert into new array
+	take the bounds of the subarray
+	insert into deque
+	while deque is not empty
+	take the 2 numbers at end 
+	repeat the above process
