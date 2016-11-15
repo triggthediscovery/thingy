@@ -1,52 +1,72 @@
 #include "BST.h"
+#include <math.h>
+#include <deque>
 using namespace std;
+#define nodes 1000
+//write a function that returns an array which is passed a sorted array
+//an array whose elements are ordered in such a way that 
+//would create a balanced BST
+//cannot take duplicates
+template <typename element> 
+element* balancedBST(element list[], int length) {
+	element* retVal = new element[length];
+	for(int i=0; i < length; i++) {
+		*(retVal + i) = 0;
+	}
+	//create a deque
+	//take the midpoint of the array
+	//insert into new array
+	//take the bounds of the subarray
+	//insert into deque
+	//while deque is not empty
+	//take the 2 numbers at end 
+	//repeat the above process
+	deque<element> deque;
+	int count = 0;
+	retVal[count++] = list[length/2];
+	deque.push_back(0);
+	deque.push_back((length/2)-1);
+	deque.push_back((length/2)+1);
+	deque.push_back(length - 1);
+	while(!deque.empty()) {
+		int lower = deque.front();
+		deque.pop_front();
+		int upper = deque.front();
+		deque.pop_front();
+		retVal[count++] = list[(lower+upper)/2];
+		if(upper - lower == 1) {
+			deque.push_back(upper);
+			deque.push_back(upper);
+		} else if(upper - lower == 0) {
+			//don't do anything
+		} else  {
+			deque.push_back(lower);
+			deque.push_back(((lower+upper)/2) - 1);
+			deque.push_back(((lower+upper)/2) + 1);
+			deque.push_back(upper);
+		}
+	}	
+	return retVal;
+}
+
 int main() {
+	srand(time(NULL));
 	BST<int> tree; 
-	//tests:
-
-	//generate a random set of integers of size: 10000
-
-	//create three trees, one with that will be balanced versus a tree
-	//whose nodes will be randomly inserted and the final tree which will
-	//represent the worse time complexity -> its elements are inserted in sorted order
-
-	//we will compare the runtime complexity of these trees
-
-	//the 1st test will be a comparison of run time of inorder display
-	//hypothesis -> the runtime for each should be the same 
-		//do this test for trees of size 10, 100, 1000, 10000
-
-	//the 2nd test will consist of comparing the run times of the trees 
-	//for inserting one element at a time
-		//to be specific -> before an element is to be inserted, start the timer
-		//after every insert is called, stop the timer
-
-		//store the the runtime of the operation in an array
-		//for each tree store these times in an array and create a 
-		//graph comparing total runtime vs. # of nodes inside tree at time of insert
-		//do # of elements added in increments of 10
-
-	//the 3rd test will be comparing runtime of find operation
-	//this will occur at the same time as the test for insert
-	//after an insert has completed and been timed
-	//start the timer for a the find operation
-	//once done, stop the timer
-	//append these to an array
-
-	//the last test will compare the times it takes to remove an element
-	//this test will be done in the same way
-	//after every 10 inserts
-	//start the timer for remove
-	//remove
-	//stop timer
-	//append this to an array
-	//create a graph of run time vs # of nodes inside the tree 
-
-	//the runtime will be compared for the 3 of these
-	// hypothesis -> ?
-
-
-
-	//the next test will cons
+	int arr[nodes];
+	for(int i=0; i < nodes; i++) {
+		arr[i] = i;
+	}
+	int* balancedArr = balancedBST(arr, nodes);
+	random_shuffle(arr, arr + nodes);
+	/*
+	for(int i=0; i < nodes; i++) {
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+	for(int i=0; i < nodes; i++) {
+		cout << *(balancedArr + i) << " ";
+	}
+	*/
+	delete [] balancedArr;
 	return 0;
 }

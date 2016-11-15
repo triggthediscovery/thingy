@@ -1,4 +1,5 @@
 tester.dSYM/*
+driver.dSYM/*
 *.o
 driver
 tester

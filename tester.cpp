@@ -69,16 +69,17 @@ int main() {
 	
 	cout << "remove test" << endl;
 	{
-		cout << "we should not be able to find any nodes that have been removed" << endl;
-		for(int i=0; i < 3; i++) {
-			int val = rand() % nodes;
-			if(tree1.find(arr[val])) cout << arr[val] << ": BST find -> true" << endl;
-			else cout << arr[val] << ": BST find -> false" << endl;
-			cout << "After removing " << arr[val] << ":" << endl;
-			tree1.remove(arr[val]);
-			if(tree1.find(arr[val])) cout << arr[val] << ": BST find -> true" << endl;
-			else cout << arr[val] << ": BST find -> false" << endl;
-		}	
+		// cout << "we should not be able to find any nodes that have been removed" << endl;
+		// for(int i=0; i < 3; i++) {
+		// 	int val = rand() % nodes;
+		// 	if(tree1.find(arr[val])) cout << arr[val] << ": BST find -> true" << endl;
+		// 	else cout << arr[val] << ": BST find -> false" << endl;
+		// 	cout << "After removing " << arr[val] << ":" << endl;
+		// 	tree1.remove(arr[val]);
+		// 	if(tree1.find(arr[val])) cout << arr[val] << ": BST find -> true" << endl;
+		// 	else cout << arr[val] << ": BST find -> false" << endl;
+		// }	
+		tree1.remove(arr[0]);
 	}
 
 	return 0;
