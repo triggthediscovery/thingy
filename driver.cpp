@@ -3,11 +3,6 @@
 #include <chrono>
 #include <deque>
 
-#include <random>
-#include <algorithm>
-#include <iterator>
-#include <iostream>
-
 using namespace std;
 #define nodes 10000
 #define micro 1000000
@@ -247,7 +242,7 @@ int main() {
 	}
 	//remove test:
 	{	
-		/*
+		
 		//after removing an element, insert it back again
 		BST<int> sortedBST;
 		BST<int> shuffledBST;
@@ -310,7 +305,7 @@ int main() {
 		//for(int i=0; i< nodes; i++) {
 			cout << balancedRT[nodes-1] << " ";
 		//}
-		*/
+		
 	}
 
 	delete [] balanced;
