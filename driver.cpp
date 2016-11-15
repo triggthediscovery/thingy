@@ -1,9 +1,10 @@
 #include "BST.h"
+#include <fstream>
 #include <math.h>
 #include <chrono>
 #include <deque>
 using namespace std;
-#define nodes 10000
+#define nodes 1000
 #define micro 1000000
 typedef std::chrono::high_resolution_clock Time;
 typedef std::chrono::duration<float> fsec;
@@ -41,7 +42,13 @@ element* balancedBST(element list[], int length) {
 	}	
 	return retVal;
 }
-
+void createCSV(float arr[], int length, string file) {
+	ofstream out;
+	out.open(file);
+	for(int i=0; i < length; i++) {
+		
+	}
+}
 int main() {
 	srand(time(NULL));
 
@@ -241,7 +248,7 @@ int main() {
 	}
 	//remove test:
 	{	
-		/*
+		
 		//after removing an element, insert it back again
 		BST<int> sortedBST;
 		BST<int> shuffledBST;
@@ -304,7 +311,7 @@ int main() {
 		//for(int i=0; i< nodes; i++) {
 			cout << balancedRT[nodes-1] << " ";
 		//}
-		*/
+		
 	}
 
 	delete [] balanced;
