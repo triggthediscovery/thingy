@@ -5,7 +5,7 @@
 #include <deque>
 
 using namespace std;
-#define nodes 10000
+#define nodes 10
 #define micro 1000000
 typedef std::chrono::high_resolution_clock Time;
 typedef std::chrono::duration<float> fsec;
@@ -43,12 +43,12 @@ element* balancedBST(element list[], int length) {
 	}	
 	return retVal;
 }
-void createCSV(float arr[], int length, string file) {
+void createCSV(float arr[], float arr1[], float arr2[], int length, string file) {
 	ofstream out;
 	out.open(file);
-	out << "nodes, runtime" << endl;
+	out << "nodes,sorted,random,balanced" << endl;
 	for(int i=0; i < length; i++) {
-		out << i << "," << arr[i];
+		out << i << "," << arr[i] << "," << arr1[i] << "," << arr2[i] << endl;
 	}
 	out.close();
 }
@@ -124,10 +124,11 @@ int main() {
 		//for(int i=0; i< nodes; i++) {
 			cout << balancedRT[nodes-1] << " ";
 		//}
+		createCSV(sortedRT, shuffledRT, balancedRT, nodes, "./insertRT.csv");
 	}
 	//display test:
 	{
-		/*
+		
 		BST<int> sortedBST;
 		BST<int> shuffledBST;
 		BST<int> balancedBST;
@@ -187,7 +188,7 @@ int main() {
 		//for(int i=0; i< nodes; i++) {
 			cout << balancedRT[nodes-1] << " ";
 		//}
-		*/
+		createCSV(sortedRT, shuffledRT, balancedRT, nodes, "./displayRT.csv");
 	}
 	//find test:
 	{
@@ -249,6 +250,7 @@ int main() {
 		//for(int i=0; i< nodes; i++) {
 			cout << balancedRT[nodes-1] << " ";
 		//}
+		createCSV(sortedRT, shuffledRT, balancedRT, nodes, "./findRT.csv");
 	}
 	//remove test:
 	{	
@@ -315,7 +317,7 @@ int main() {
 		//for(int i=0; i< nodes; i++) {
 			cout << balancedRT[nodes-1] << " ";
 		//}
-		
+		createCSV(sortedRT, shuffledRT, balancedRT, nodes, "./removeRT.csv");
 	}
 
 	delete [] balanced;
