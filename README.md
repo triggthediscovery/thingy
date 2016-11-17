@@ -17,12 +17,11 @@ To run the tester functions run "make clean" then "./tester"
 
 	the 1st test will be a comparison of run time of inorder display
 	hypothesis -> the runtime for each should be the same 
-		do this test for trees of size 10, 100, 1000, 10000
+		do this test for trees of size 10, 100, 1000, 10000, etc.
 
 	the 2nd test will consist of comparing the run times of the trees 
-	for inserting one element at a time
-		to be specific -> before an element is to be inserted, start the timer
-		after every insert is called, stop the timer
+	for insertion
+		take the time to 10
 
 		store the the runtime of the operation in an array
 		for each tree store these times in an array and create a 

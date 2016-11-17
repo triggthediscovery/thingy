@@ -85,6 +85,9 @@ int main() {
 				sortedBST.insert(sorted[i]);
 			}
 			auto t1 = Time::now();
+			for(int i=0; i < num_nodes; i++) {
+				sortedBST.remove(sorted[i]);
+			}
 			fsec fs = t1 - t0;
 			//time in microseconds
 			float duration = fs.count()*micro;
@@ -99,6 +102,9 @@ int main() {
 				shuffledBST.insert(shuffled[i]);
 			}
 			auto t1 = Time::now();
+			for(int i=0; i < num_nodes; i++) {
+				shuffledBST.remove(sorted[i]);
+			}
 			fsec fs = t1 - t0;
 			//time in microseconds
 			float duration = fs.count()*micro;
@@ -113,6 +119,9 @@ int main() {
 				balancedBST.insert(balanced[i]);
 			}
 			auto t1 = Time::now();
+			for(int i=0; i < num_nodes; i++) {
+				balancedBST.remove(sorted[i]);
+			}
 			fsec fs = t1 - t0;
 			//time in microseconds
 			float duration = fs.count()*micro;
@@ -343,6 +352,7 @@ int main() {
 		}
 		createCSV(sortedRT, shuffledRT, balancedRT, "./removeRT.csv");
 	}
+
 	delete [] balanced;
 	return 0;
 }
