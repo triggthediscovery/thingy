@@ -1,9 +1,13 @@
 # thingy
 it exists
 
+To run the runtime tests run "make" and then "./driver"
+The runtime tests will be stored in the insertRT.csv, 
+displayRT.csv, findRT.csv, and insertRT.csv
+
 The tester is for seperate tests for the BST.h.
-The driver will contain the actual timer tests.
-To run the tester functions run "make clean" then "./tester"
+The driver will contain the actual run time tests.
+To run the tester functions run "make clean" then "./tester".
 
 	tests:
 
@@ -21,36 +25,20 @@ To run the tester functions run "make clean" then "./tester"
 
 	the 2nd test will consist of comparing the run times of the trees 
 	for insertion
-		take the time to 10
+		take the time to insert 10 elements, then empty the tree, then take the time 
+		insert 100 elements, then empty, etc.
 
-		store the the runtime of the operation in an array
-		for each tree store these times in an array and create a 
-		graph comparing total runtime vs. # of nodes inside tree at time of insert
-		do # of elements added in increments of 10
+		take the average runtime to insert an element in each case
 
 	the 3rd test will be comparing runtime of find operation
-	this will occur at the same time as the test for insert
-	after an insert has completed and been timed
-	start the timer for a the find operation
-	once done, stop the timer
-	append these to an array
+		measure the time it takes to find an element not in the tree
+		each tree would then have to search until it reached the bottom of the tree
+		which is worst case scenario
 
-	seperate tree
-	the last test will compare the times it takes to remove an element
-	this test will be done in the same way
-	after every 10 inserts
-	start the timer for remove
-	remove
-	stop timer
-	append this to an array
-	create a graph of run time vs # of nodes inside the tree 
-
-	the runtime will be compared for the 3 of these
-	hypothesis -> ?
-
-
-
-	the next test will cons
+	the 4th test is for remove
+		basically the same as find
+		try to remove an element not present in the tree
+		this represents worst case scenario
 
 
 	How the binary tree is built:
@@ -68,3 +56,6 @@ To run the tester functions run "make clean" then "./tester"
 	while deque is not empty
 	take the 2 numbers at end 
 	repeat the above process
+
+	if there are no duplicates then this method will always create 
+	a balanced binary search treeå
