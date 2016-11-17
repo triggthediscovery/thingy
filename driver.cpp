@@ -3,9 +3,11 @@
 #include <fstream>
 #include <chrono>
 #include <deque>
+#include <vector>
+#include <cmath>
 
 using namespace std;
-#define nodes 10
+#define nodes 10000
 #define micro 1000000
 typedef std::chrono::high_resolution_clock Time;
 typedef std::chrono::duration<float> fsec;
@@ -43,16 +45,15 @@ element* balancedBST(element list[], int length) {
 	}	
 	return retVal;
 }
-void createCSV(float arr[], float arr1[], float arr2[], int length, string file) {
+void createCSV(vector<float> arr, vector<float> arr1, vector<float> arr2, string file) {
 	ofstream out;
 	out.open(file);
 	out << "nodes,sorted,random,balanced" << endl;
-	for(int i=0; i < length; i++) {
-		out << i << "," << arr[i] << "," << arr1[i] << "," << arr2[i] << endl;
+	for(int i=0; i < arr.size(); i++) {
+		out << pow(10,i+1) << "," << arr[i] << "," << arr1[i] << "," << arr2[i] << endl;
 	}
 	out.close();
 }
-
 int main() {
 	srand(time(NULL));
 
@@ -73,185 +74,276 @@ int main() {
 		BST<int> sortedBST;
 		BST<int> shuffledBST;
 		BST<int> balancedBST;
-		float sortedRT[nodes];
-		float shuffledRT[nodes];
-		float balancedRT[nodes];
+		vector<float> sortedRT;
+		vector<float> shuffledRT;
+		vector<float> balancedRT;
 		//sorted
-		for(int i=0; i < nodes; i++) {
-			//take the time
+		int num_nodes = 10;
+		while(num_nodes <= nodes) {
 			auto t0 = Time::now();
-			sortedBST.insert(sorted[i]);
-    		auto t1 = Time::now();
-    		//time in microseconds
-    		fsec fs = t1 - t0;
-    		float duration = fs.count()*micro;
-    		sortedRT[i] = duration;
-			//insert this into an array
+			for(int i=0; i < num_nodes; i++) {
+				sortedBST.insert(sorted[i]);
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/num_nodes;
+			sortedRT.push_back(duration);
+			num_nodes *= 10;
 		}
-		//shuffled
-		for(int i=0; i < nodes; i++) {
-			//take the time
+		num_nodes = 10;
+		while(num_nodes <= nodes) {
 			auto t0 = Time::now();
-			shuffledBST.insert(shuffled[i]);
-    		auto t1 = Time::now();
-    		//time in microseconds
-    		fsec fs = t1 - t0;
-    		float duration = fs.count()*micro;
-    		shuffledRT[i] = duration;
-			//insert this into an array
+			for(int i=0; i < num_nodes; i++) {
+				shuffledBST.insert(shuffled[i]);
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/num_nodes;
+			shuffledRT.push_back(duration);
+			num_nodes *= 10;
 		}
-		//balanced
-		for(int i=0; i < nodes; i++) {
-			//take the time
+		num_nodes = 10;
+		while(num_nodes <= nodes) {
 			auto t0 = Time::now();
-			balancedBST.insert(balanced[i]);
-    		auto t1 = Time::now();
-    		//time in microseconds
-    		fsec fs = t1 - t0;
-    		float duration = fs.count()*micro;
-    		balancedRT[i] = duration;
-			//insert this into an array
+			for(int i=0; i < num_nodes; i++) {
+				balancedBST.insert(balanced[i]);
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/num_nodes;
+			balancedRT.push_back(duration);
+			num_nodes *= 10;
 		}
-		//graph them
-		//for(int i=0; i< nodes; i++) {
-			cout << sortedRT[nodes-1] << " ";
-		//}
-		cout << endl;
-		//for(int i=0; i< nodes; i++) {
-			cout << shuffledRT[nodes-1] << " ";
-		//}
-		cout << endl;
-		//for(int i=0; i< nodes; i++) {
-			cout << balancedRT[nodes-1] << " ";
-		//}
-		createCSV(sortedRT, shuffledRT, balancedRT, nodes, "./insertRT.csv");
+		createCSV(sortedRT, shuffledRT, balancedRT, "./insertRT.csv");
 	}
+	/*
 	//display test:
 	{
-		
+		//create three trees
 		BST<int> sortedBST;
 		BST<int> shuffledBST;
 		BST<int> balancedBST;
-		float sortedRT[nodes];
-		float shuffledRT[nodes];
-		float balancedRT[nodes];
+		vector<float> sortedRT;
+		vector<float> shuffledRT;
+		vector<float> balancedRT;
+
 		//sorted
-		for(int i=0; i < nodes; i++) {
-			sortedBST.insert(sorted[i]);
-			//take the time
+		int num_nodes = 10;
+		int leftOff = 0;
+		while(num_nodes <= nodes) {
+			for(int i=leftOff; i < num_nodes; i++) {
+				sortedBST.insert(sorted[i]);
+			}
 			auto t0 = Time::now();
-			sortedBST.display();
-    		auto t1 = Time::now();
-    		//time in microseconds
-    		fsec fs = t1 - t0;
-    		float duration = fs.count()*micro;
-    		sortedRT[i] = duration;
-			//insert this into an array
+			for(int i=0; i < 100; i++) {
+				sortedBST.display();
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/100;
+			sortedRT.push_back(duration);
+			leftOff = num_nodes;
+			num_nodes *= 10;
 		}
 		//shuffled
-		for(int i=0; i < nodes; i++) {
-			shuffledBST.insert(shuffled[i]);
-			//take the time
+		num_nodes = 10;
+		leftOff = 0;
+		while(num_nodes <= nodes) {
+			for(int i=leftOff; i < num_nodes; i++) {
+				shuffledBST.insert(shuffled[i]);
+			}
 			auto t0 = Time::now();
-			shuffledBST.display();
-    		auto t1 = Time::now();
-    		//time in microseconds
-    		fsec fs = t1 - t0;
-    		float duration = fs.count()*micro;
-    		shuffledRT[i] = duration;
-			//insert this into an array
+			for(int i=0; i < 100; i++) {
+				shuffledBST.display();
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/100;
+			shuffledRT.push_back(duration);
+			leftOff = num_nodes;
+			num_nodes *= 10;
 		}
-		//balanced
-		for(int i=0; i < nodes; i++) {
-			balancedBST.insert(balanced[i]);
-			//take the time
+		//sorted
+		num_nodes = 10;
+		leftOff = 0;
+		while(num_nodes <= nodes) {
+			for(int i=leftOff; i < num_nodes; i++) {
+				balancedBST.insert(balanced[i]);
+			}
 			auto t0 = Time::now();
-			balancedBST.display();
-    		auto t1 = Time::now();
-    		//time in microseconds
-    		fsec fs = t1 - t0;
-    		float duration = fs.count()*micro;
-    		balancedRT[i] = duration;
-			//insert this into an array
+			for(int i=0; i < 100; i++) {
+				balancedBST.display();
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/100;
+			balancedRT.push_back(duration);
+			leftOff = num_nodes;
+			num_nodes *= 10;
 		}
-		
-		cout << endl;
-		//graph them
-		//for(int i=0; i< nodes; i++) {
-			cout << sortedRT[nodes-1] << " ";
-		//}
-		cout << endl;
-		//for(int i=0; i< nodes; i++) {
-			cout << shuffledRT[nodes-1] << " ";
-		//}
-		cout << endl;
-		//for(int i=0; i< nodes; i++) {
-			cout << balancedRT[nodes-1] << " ";
-		//}
-		createCSV(sortedRT, shuffledRT, balancedRT, nodes, "./displayRT.csv");
+		createCSV(sortedRT, shuffledRT, balancedRT, "./displayRT.csv");
 	}
-	//find test:
+	*/
+	//find test: 
 	{
 		BST<int> sortedBST;
 		BST<int> shuffledBST;
 		BST<int> balancedBST;
-		float sortedRT[nodes];
-		float shuffledRT[nodes];
-		float balancedRT[nodes];
+		vector<float> sortedRT;
+		vector<float> shuffledRT;
+		vector<float> balancedRT;
 		//sorted
-		for(int i=0; i < nodes; i++) {
-			sortedBST.insert(sorted[i]);
-			//take the time
+		int num_nodes = 10;
+		int leftOff = 0;
+		while(num_nodes <= nodes) {
+			for(int i=leftOff; i < num_nodes; i++) {
+				sortedBST.insert(sorted[i]);
+			}
 			auto t0 = Time::now();
-			sortedBST.find(sorted[i]);
-    		auto t1 = Time::now();
-    		//time in microseconds
-    		fsec fs = t1 - t0;
-    		float duration = fs.count()*micro;
-    		sortedRT[i] = duration;
-			//insert this into an array
+			//find an element not inside the tree
+			for(int i=0; i < 100; i++) {
+				sortedBST.find(num_nodes);
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/100;
+			sortedRT.push_back(duration);
+			leftOff = num_nodes;
+			num_nodes *= 10;
 		}
 		//shuffled
-		for(int i=0; i < nodes; i++) {
-			shuffledBST.insert(shuffled[i]);
-			//take the time
+		num_nodes = 10;
+		leftOff = 0;
+		while(num_nodes <= nodes) {
+			for(int i=leftOff; i < num_nodes; i++) {
+				shuffledBST.insert(shuffled[i]);
+			}
 			auto t0 = Time::now();
-			shuffledBST.find(sorted[i]);
-    		auto t1 = Time::now();
-    		//time in microseconds
-    		fsec fs = t1 - t0;
-    		float duration = fs.count()*micro;
-    		shuffledRT[i] = duration;
-			//insert this into an array
+			//find an element not inside the tree
+			for(int i=0; i < 100; i++) {
+				shuffledBST.find(num_nodes);
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/100;
+			shuffledRT.push_back(duration);
+			leftOff = num_nodes;
+			num_nodes *= 10;
 		}
 		//balanced
-		for(int i=0; i < nodes; i++) {
-			balancedBST.insert(balanced[i]);
-			//take the time
+		num_nodes = 10;
+		leftOff = 0;
+		while(num_nodes <= nodes) {
+			for(int i=leftOff; i < num_nodes; i++) {
+				balancedBST.insert(balanced[i]);
+			}
 			auto t0 = Time::now();
-			balancedBST.find(sorted[i]);
-    		auto t1 = Time::now();
-    		//time in microseconds
-    		fsec fs = t1 - t0;
-    		float duration = fs.count()*micro;
-    		balancedRT[i] = duration;
-			//insert this into an array
+			//find an element not inside the tree
+			for(int i=0; i < 100; i++) {
+				balancedBST.find(num_nodes);
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/100;
+			balancedRT.push_back(duration);
+			leftOff = num_nodes;
+			num_nodes *= 10;
 		}
-		cout << endl;
-		//graph them
-		//for(int i=0; i< nodes; i++) {
-			cout << sortedRT[nodes-1] << " ";
-		//}
-		cout << endl;
-		//for(int i=0; i< nodes; i++) {
-			cout << shuffledRT[nodes-1] << " ";
-		//}
-		cout << endl;
-		//for(int i=0; i< nodes; i++) {
-			cout << balancedRT[nodes-1] << " ";
-		//}
-		createCSV(sortedRT, shuffledRT, balancedRT, nodes, "./findRT.csv");
+		createCSV(sortedRT, shuffledRT, balancedRT, "./findRT.csv");
 	}
+
+	//remove test:
+	{
+		BST<int> sortedBST;
+		BST<int> shuffledBST;
+		BST<int> balancedBST;
+		vector<float> sortedRT;
+		vector<float> shuffledRT;
+		vector<float> balancedRT;
+		//sorted
+		int num_nodes = 10;
+		int leftOff = 0;
+		while(num_nodes <= nodes) {
+			for(int i=leftOff; i < num_nodes; i++) {
+				sortedBST.insert(sorted[i]);
+			}
+			auto t0 = Time::now();
+			//try to remove an element not inside the tree
+			for(int i=0; i < 100; i++) {
+				sortedBST.remove(num_nodes);
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/100;
+			sortedRT.push_back(duration);
+			leftOff = num_nodes;
+			num_nodes *= 10;
+		}
+		//shuffled
+		num_nodes = 10;
+		leftOff = 0;
+		while(num_nodes <= nodes) {
+			for(int i=leftOff; i < num_nodes; i++) {
+				shuffledBST.insert(shuffled[i]);
+			}
+			auto t0 = Time::now();
+			//try to remove an element not inside the tree
+			for(int i=0; i < 100; i++) {
+				shuffledBST.remove(num_nodes);
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/100;
+			shuffledRT.push_back(duration);
+			leftOff = num_nodes;
+			num_nodes *= 10;
+		}
+		//shuffled
+		num_nodes = 10;
+		leftOff = 0;
+		while(num_nodes <= nodes) {
+			for(int i=leftOff; i < num_nodes; i++) {
+				balancedBST.insert(balanced[i]);
+			}
+			auto t0 = Time::now();
+			//try to remove an element not inside the tree
+			for(int i=0; i < 100; i++) {
+				balancedBST.remove(num_nodes);
+			}
+			auto t1 = Time::now();
+			fsec fs = t1 - t0;
+			//time in microseconds
+			float duration = fs.count()*micro;
+			duration = duration/100;
+			balancedRT.push_back(duration);
+			leftOff = num_nodes;
+			num_nodes *= 10;
+		}
+		createCSV(sortedRT, shuffledRT, balancedRT, "./removeRT.csv");
+	}
+	/*
 	//remove test:
 	{	
 		
@@ -319,7 +411,7 @@ int main() {
 		//}
 		createCSV(sortedRT, shuffledRT, balancedRT, nodes, "./removeRT.csv");
 	}
-
+	*/
 	delete [] balanced;
 	return 0;
 }

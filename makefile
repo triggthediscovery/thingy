@@ -16,4 +16,4 @@ driver.o: driver.cpp
 	g++ $(FLAGS) -c driver.cpp -o driver.o
 
 clean:
-	rm -f *.o driver tester
+	rm -f *.o driver tester displayRT.csv insertRT.csv findRT.csv removeRT.csv
